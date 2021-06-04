@@ -1,30 +1,27 @@
-// 10 3 --- 6 7
-// 0 1 2 3 4 5 6 7 8 9
-// 1 4 0 0 3 1 5 3 1 1
-//)1 4 0 0 3 1 5 3 1 1(
-// I
-// 1)4 0 0 3 1 5 3 1 1(
-//   I
-// 1)1 0 0 3 1 5 3 1(4
-//   I
-// 1 1)0 0 3 1 5 3 1(4
-//     I
-// 1 1 0)0 3 1 5 3 1(4
-//       I
-// 1 1 0 0)3 1 5 3 1(4
-//         I
-// 1 1 0 0)3 1 5 3 1(4
-//           I
-// 1 1 0 0 1)3 5 3 1(4
-//             I
-// 1 1 0 0 1)3 1 3(5 4
-//             I
-// 1 1 0 0 1 1)3 3(5 4
-//               I
-function dutchFlag(arr, target) {
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+const input = [];
+rl.on("line", function (line) {
+  input.push(line.trim());
+
+  if (input.length === 2) {
+    const firstInput = input[0].split(" ");
+    const count = parseInt(firstInput[0]);
+    const target = parseInt(firstInput[1]);
+    const arr = input[1].split(" ").map((n) => parseInt(n));
+    const result = dutchFlag(arr, target, count);
+    console.log(result);
+  }
+});
+
+function dutchFlag(arr, target, len) {
   let i = 0,
     left = -1,
-    right = arr.length;
+    right = len;
+  if (len === 1 && target !== arr[0]) return "-1 -1";
   while (i < right) {
     if (arr[i] > target) {
       swap(arr, i, --right);
@@ -35,7 +32,7 @@ function dutchFlag(arr, target) {
       i++;
     }
   }
-  return [++left, --right];
+  return (left === -1 ? left : ++left) + " " + (right === len ? -1 : --right);
 }
 
 function swap(arr, i, j) {
@@ -44,5 +41,4 @@ function swap(arr, i, j) {
   arr[i] = arr[i] ^ arr[j];
 }
 
-let result = dutchFlag([1, 4, 0, 0, 3, 1, 5, 3, 1, 1], 3);
-console.log(result);
+dutchFlag([11, 7, 13, 5, 15, 5, 13, 16, 15, 3, 8, 11, 10, 0, 18, 6], 3, 16);
