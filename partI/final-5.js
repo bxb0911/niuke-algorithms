@@ -1,28 +1,23 @@
-// 编写一个程序，将输入字符串中的字符按如下规则排序。
+// const readline = require("readline");
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
 
-// 规则 1 ：英文字母从 A 到 Z 排列，不区分大小写。
-// 如，输入： Type 输出： epTy
-
-// 规则 2 ：同一个英文字母的大小写同时存在时，按照输入顺序排列。
-// 如，输入： BabA 输出： aABb
-
-// 规则 3 ：非英文字母的其它字符保持原来的位置。
-// 如，输入： By?e 输出： Be?y
-
+// rl.on("line", function (line) {
+//   strSort(line.trim())
+// });
 function strSort(str) {
+  if (!str) return
   let arr = str.split('')
-  split(arr, 0, arr.length)
+  split(arr, 0, arr.length - 1)
   let result = ''
-  for (let i = 0, j = 0, len = str.length; i < len; i++) {
-    if (!isA2Z(str[i])) {
-      result += str[i]
-    } else {
-      result += arr[j++]
-    }
+  for (let i = 0, len = str.length; i < len; i++) {
+    result += arr[i]
   }
   console.log(result)
 }
-
+         
 function split(arr, start, end) {
   if (start === end) return
   let mid = start + ((end - start) >> 1)
@@ -32,27 +27,41 @@ function split(arr, start, end) {
 }
 
 function merge(arr, start, mid, end) {
-  let newArr = new Array(end - start + 1), i = 0, j = mid + 1
-  while (start <= mid && j <= end) {
-    if ((arr[start] <= arr[j] && isA2Z(arr[start])) || isSame(arr[start], arr[j])) {
-      newArr[i++] = arr[start++]
-    } else if (arr[start] > arr[j] && isA2Z(arr[j])) {
-      newArr[i++] = arr[j++]
+  let newArr = new Array(end - start + 1), i = 0, left = start, right = mid + 1
+  while (left <= mid && right <= end) {
+    if (isA2Z(arr[left]) && isA2Z(arr[right])) {
+      if ((arr[left].toLowerCase() <= arr[right].toLowerCase()) || isSame(arr[left], arr[right])) {
+        newArr[i++] = arr[left++]
+      } else if (arr[left].toLowerCase() > arr[right].toLowerCase()) {
+        newArr[i++] = arr[right++]
+      } else {
+        break
+      }
+    } else if (!isA2Z(arr[left]) && isA2Z(arr[right])) {
+      left++
+    } else if (isA2Z(arr[left]) && !isA2Z(arr[right])) {
+      right++
     } else {
-      break;
+      left++
+      right++
     }
   }
-
-  while (start <= mid && isA2Z(arr[start])) {
-    newArr[i++] = arr[start++]
+  while (left <= mid && isA2Z(arr[left])) {
+    newArr[i++] = arr[left++]
   }
 
-  while (j <= end && isA2Z(arr[j])) {
-    newArr[i++] = arr[j++]
+  while (right <= end && isA2Z(arr[right])) {
+    newArr[i++] = arr[right++]
   }
-
-  for (let i = 0, len = newArr.length; i < len; i++) {
-    arr[i + start] = temp[i]
+  for (let i = 0, j = 0, len = newArr.length; i < len; i++, j++) {
+    if (!arr[i + start]) {
+      continue
+    }
+    if (isA2Z(arr[i + start])) {
+      arr[i + start] = newArr[j]
+    } else {
+      j--;
+    }
   }
 }
 
@@ -61,12 +70,7 @@ function isA2Z(char) {
 }
 
 function isSame(c1, c2) {
-  return isA2Z(c1) && isA2Z(c2) && Math.abs(c1 - c2) === 32
+  return isA2Z(c1) && isA2Z(c2) && (c1.toLowerCase() === c2.toLowerCase())
 }
-
-function swap(arr, i, j) {
-  if (i === j) return
-  let temp = arr[i]
-  arr[i] = arr[j]
-  arr[j] = temp
-}
+// `#$Y^!#Pf&~#FUyTtAfZhCs&Dly%M@(muOI@Le^mydvc((w$x-cP&t-f$R%CCp)bCck@P-aga-&RR@pwojyuD$%&ukmg%NVnS%nh(pF$t!!drI*QdsfHBDYr!rp-$a~%@DxI^k$S-s@GN@uV#D*l$JVLJ&Kw(&Mrv^x%wkZ#(-!ZhMqZ)D%ZhnXA+C&%VoHLSpn!(%O-)$VOI-!)l-H~RFR##+jwo^biOPbB$hh&FG@P@W^*+nKCebJ%PC(Q$pd^%Kp~!J*%&@!ELBYMJjJCDEJw(!!(nG#Py%thZL(szC(*o&xfY&n~-nDRZ^)$!~ZuI*RG%+BMCsaHs)lwgH+i$oByguIv%odmN%pxXJa%OA#%#+(bzEd(Ox^Z#&It`
+strSort('#$Y^')
