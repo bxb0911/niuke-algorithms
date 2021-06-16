@@ -53,6 +53,7 @@ function merge(arr, start, mid, end) {
   while (right <= end && isA2Z(arr[right])) {
     newArr[i++] = arr[right++]
   }
+  console.log(newArr)
   for (let i = 0, j = 0, len = newArr.length; i < len; i++, j++) {
     if (!arr[i + start]) {
       continue
@@ -63,14 +64,16 @@ function merge(arr, start, mid, end) {
       j--;
     }
   }
+  // console.log(arr)
 }
 
 function isA2Z(char) {
-  return char.charCodeAt() >= 65 && char.charCodeAt() <= 122
+  return char.toLowerCase().charCodeAt() >= 97 && char.toLowerCase().charCodeAt() <= 122
 }
 
 function isSame(c1, c2) {
   return isA2Z(c1) && isA2Z(c2) && (c1.toLowerCase() === c2.toLowerCase())
 }
 // `#$Y^!#Pf&~#FUyTtAfZhCs&Dly%M@(muOI@Le^mydvc((w$x-cP&t-f$R%CCp)bCck@P-aga-&RR@pwojyuD$%&ukmg%NVnS%nh(pF$t!!drI*QdsfHBDYr!rp-$a~%@DxI^k$S-s@GN@uV#D*l$JVLJ&Kw(&Mrv^x%wkZ#(-!ZhMqZ)D%ZhnXA+C&%VoHLSpn!(%O-)$VOI-!)l-H~RFR##+jwo^biOPbB$hh&FG@P@W^*+nKCebJ%PC(Q$pd^%Kp~!J*%&@!ELBYMJjJCDEJw(!!(nG#Py%thZL(szC(*o&xfY&n~-nDRZ^)$!~ZuI*RG%+BMCsaHs)lwgH+i$oByguIv%odmN%pxXJa%OA#%#+(bzEd(Ox^Z#&It`
-strSort('#$Y^')
+// Dl  my   &
+strSort(`&Dly%m`)
