@@ -18,6 +18,12 @@ function heapSort(line, len) {
   console.log(arr.join(' '))
 }
 
+//       8
+//    4     1
+//  9   6 6   8
+// 9 8 8 6 6 4 1
+
+// 找到大的孩子PK，PK不过就往下移动
 function heapify(arr = [], size) {
   heapInsert(arr)
   let last = arr.length - 1, i = last
@@ -28,6 +34,7 @@ function heapify(arr = [], size) {
   }
 }
 
+// 跟父节点比较，若值比父节点大进行交换
 function heapInsert(arr = [], len = arr.length) {
   for (let i = 1; i < len; i++) {
     let cur = i, p = cur - 1 >> 1

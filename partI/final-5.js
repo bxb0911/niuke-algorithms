@@ -1,12 +1,12 @@
-// const readline = require("readline");
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// rl.on("line", function (line) {
-//   strSort(line.trim())
-// });
+rl.on("line", function (line) {
+  strSort(line.trim())
+});
 function strSort(str) {
   if (!str) return
   let arr = str.split('')
@@ -46,14 +46,21 @@ function merge(arr, start, mid, end) {
       right++
     }
   }
-  while (left <= mid && isA2Z(arr[left])) {
-    newArr[i++] = arr[left++]
+  while (left <= mid) {
+    if (isA2Z(arr[left])) {
+      newArr[i++] = arr[left++]
+    } else {
+      left++;
+    }
   }
-
-  while (right <= end && isA2Z(arr[right])) {
-    newArr[i++] = arr[right++]
+  
+  while (right <= end) {
+    if (isA2Z(arr[right])) {
+      newArr[i++] = arr[right++]
+    } else {
+      right++
+    }
   }
-  console.log(newArr)
   for (let i = 0, j = 0, len = newArr.length; i < len; i++, j++) {
     if (!arr[i + start]) {
       continue
@@ -64,7 +71,6 @@ function merge(arr, start, mid, end) {
       j--;
     }
   }
-  // console.log(arr)
 }
 
 function isA2Z(char) {
@@ -76,4 +82,5 @@ function isSame(c1, c2) {
 }
 // `#$Y^!#Pf&~#FUyTtAfZhCs&Dly%M@(muOI@Le^mydvc((w$x-cP&t-f$R%CCp)bCck@P-aga-&RR@pwojyuD$%&ukmg%NVnS%nh(pF$t!!drI*QdsfHBDYr!rp-$a~%@DxI^k$S-s@GN@uV#D*l$JVLJ&Kw(&Mrv^x%wkZ#(-!ZhMqZ)D%ZhnXA+C&%VoHLSpn!(%O-)$VOI-!)l-H~RFR##+jwo^biOPbB$hh&FG@P@W^*+nKCebJ%PC(Q$pd^%Kp~!J*%&@!ELBYMJjJCDEJw(!!(nG#Py%thZL(szC(*o&xfY&n~-nDRZ^)$!~ZuI*RG%+BMCsaHs)lwgH+i$oByguIv%odmN%pxXJa%OA#%#+(bzEd(Ox^Z#&It`
 // Dl  my   &
-strSort(`&Dly%m`)
+// left:1
+// strSort(`#$Y^!#Pf&~#FUyTtAfZhCs&Dly%M@(muOI@Le^mydvc((w$x-cP&t-f$R%CCp)bCck@P-aga-&RR@pwojyuD$%&ukmg%NVnS%nh(pF$t!!drI*QdsfHBDYr!rp-$a~%@DxI^k$S-s@GN@uV#D*l$JVLJ&Kw(&Mrv^x%wkZ#(-!ZhMqZ)D%ZhnXA+C&%VoHLSpn!(%O-)$VOI-!)l-H~RFR##+jwo^biOPbB$hh&FG@P@W^*+nKCebJ%PC(Q$pd^%Kp~!J*%&@!ELBYMJjJCDEJw(!!(nG#Py%thZL(szC(*o&xfY&n~-nDRZ^)$!~ZuI*RG%+BMCsaHs)`)
