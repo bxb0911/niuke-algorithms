@@ -33,36 +33,17 @@ function getLinkList(str) {
 }
 
 function getCmnPart(p1, p2) {
-  let pf = p1, ps = p2, res = []
-  while (pf.next !== null && ps.next !== null) {
-    if (pf.val < ps.val) {
-      pf = pf.next
-    } else if (pf.val > ps.val) {
-      ps = ps.next
+  let res = []
+  while (p1 && p2) {
+    if (p1.val < p2.val) {
+      p1 = p1.next
+    } else if (p1.val > p2.val) {
+      p2 = p2.next
     } else {
-      res.push(pf.val)
-      pf = pf.next
-      ps = ps.next
+      res.push(p1.val)
+      p1 = p1.next
+      p2 = p2.next
     }
-  }
-  if (pf.next) {
-    while (pf.next) {
-      pf.val === ps.val && res.push(pf.val)
-      pf = pf.next
-    }
-    pf.val === ps.val && res.push(pf.val)
-  }
-  if (ps.next) {
-    while (ps.next) {
-      pf.val === ps.val && res.push(ps.val)
-      ps = ps.next
-    }
-    pf.val === ps.val && res.push(ps.val)
   }
   return res.join(' ')
 }
-
-// let p1 = getLinkList('1 2 3 4')
-// let p2 = getLinkList('1 2 3 5 6')
-// let result = getCmnPart(p1, p2)
-// console.log(result)
