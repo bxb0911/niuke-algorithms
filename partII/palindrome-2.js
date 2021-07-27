@@ -24,15 +24,15 @@ function isPail(head) {
   while (f) {
     temp = f
     s = s.next
-    f = f.next ? f.next.next : f
+    f = f.next ? f.next.next : f.next
   }
-  f === null && (f = temp.next)
+  // f === null && (f = temp.next)
   // 链表反转
   // 1 -> 2 -> 3 (-> null) <- 3 <- 2 <- 1
   let prev = null, cur = s, next = s.next
   while (next) {
     cur.next = prev
-    prev = s
+    prev = cur
     cur = next
     next = next.next
   }
@@ -51,8 +51,6 @@ function isPail(head) {
   return res;
 }
 
-let data = getLinkList([-723790,-927,-427509,-934880,79234,-415413,-267349,640368,798009,480222,-932266,649704,-244396,823801,488066,-24800,-942925,-311915,-503317])
-isPail(data)
-// module.exports = {
-//   isPail : isPail
-// };
+module.exports = {
+  isPail : isPail
+};
