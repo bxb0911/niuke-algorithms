@@ -24,7 +24,7 @@ function linkedList2Array(head) {
   return result
 }
 
-export default {
-  getLinkList,
-  linkedList2Array
+module.exports = {
+  getLinkList: getLinkList,
+  linkedList2Array: linkedList2Array
 }
