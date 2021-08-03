@@ -1,62 +1,32 @@
-// const { getLinkList, linkedList2Array } = require('./utils')
-function ListNode(x){
-  this.val = x;
-  this.next = null;
-}
+const { getLinkList } = require('./utils')
 
-function getLinkList(nodeList) {
-  nodeList = nodeList.map(item => new ListNode(item))
-  if (nodeList.length) {
-    nodeList.forEach((item, index) => {
-      if (index < nodeList.length - 1) {
-        item.next = nodeList[index + 1]
-      }
-    })
-  }
-  return nodeList[0]
-}
-
-function linkedList2Array(head) {
-  let result = []
-  while (head) {
-    result.push(head.val)
-    head = head.next
-  }
-  return result
-}
 function partition(head, x) {
-  let sh = null, st = null, mh = null, mt = null, eh = null, et = null
-  let sHead = null, mHead = null, eHead = null
+  if (head && !head.next) {
+    console.log(JSON.stringify(head))
+    return
+  }
+  let sh = null, st = null
+  let mh = null, mt = null
+
   while (head) {
-    debugger
     if (head.val < x) {
-      if (sh === null) {
-        sh = { val: head.val, next: st }
-        sHead = sh
+      if (!sh) {
+        sh = st = head
       } else {
-        st = { val: head.val, next: null }
-        sh = { val: sh.next.val, next: st }
+        st = st.next = head
       }
-    } else if (head.val === x) {
-      if (mh === null) {
-        mh = { val: head.val, next: mt }
-        mHead = mh
+    } else if (head.val >= x) {
+      if (!mh) {
+        mh = mt = head
       } else {
-        mt = { val: head.val, next: null }
-        mh = { val: mh.next.val, next: mt }
-      }
-    } else if (head.val > x) {
-      if (eh === null) {
-        eh = { val: head.val, next: et }
-        eHead = eh
-      } else {
-        et = { val: head.val, next: null }
-        eh = { val: eh.next.val, next: et }
+        mt = mt.next = head
       }
     }
     head = head.next
   }
-  console.log(sHead, mHead, eHead)
+  st && (st.next = mh)
+  mt && (mt.next = null)
+  console.log(JSON.stringify(sh || mh))
 }
-// sh 1 2 st 2
-partition(getLinkList([1, 4, 3, 2, 5, 2]), 3)
+
+partition(getLinkList([16,11,-12,-68,-40,-52,59,29,68,-4,42,-53,28,-3,-18,-24,-9,-97,38,92,-52,-23,4,88,-6,8,-85,60,-74,-81,37,-6,30,-75,26,42,-75,-14,-28,94,82,66,93,-38,-37,-24,39,6,-69,-71,-2,-21,6,-98,-33,52,-37,-65,-35,-11,-46,-98,83,36,79,-39,-21,-96,47,3,50,-18,-79,-4,-4,-64,24,87,43,55,-84,93,-65,-26,48,-46,79,-89,-11,-56,-48,-5,98,-65,84,77,-4,-85,33,96,-30,-16,-70,-9]),-30)
