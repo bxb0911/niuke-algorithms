@@ -3,6 +3,12 @@ function ListNode(x){
   this.next = null;
 }
 
+function RandomListNode(x){
+  this.label = x;
+  this.next = null;
+  this.random = null;
+}
+
 function getLinkList(nodeList) {
   nodeList = nodeList.map(item => new ListNode(item))
   if (nodeList.length) {
